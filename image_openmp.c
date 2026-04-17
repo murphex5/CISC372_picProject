@@ -58,7 +58,7 @@ uint8_t getPixelValue(Image* srcImage,int x,int y,int bit,Matrix algorithm){
 //            destImage: A pointer to a  pre-allocated (including space for the pixel array) structure to receive the convoluted image.  It should be the same size as srcImage
 //            algorithm: The kernel matrix to use for the convolution
 //Returns: Nothing
-void convolute(Image *srcImage, Image *destImage, Matrix algorithm) {
+void convolute(Image *srcImage, Image *destImage, Matrix algorithm, int numThreads) {
     #pragma omp parallel for schedule(static)
     for (int row = 0; row < srcImage->height; row++) {
         for (int pix = 0; pix < srcImage->width; pix++) {
@@ -118,7 +118,7 @@ int main(int argc,char** argv){
     destImage.height=srcImage.height;
     destImage.width=srcImage.width;
     destImage.data=malloc(sizeof(uint8_t)*destImage.width*destImage.bpp*destImage.height);
-    convolute(&srcImage,&destImage,algorithms[type]);
+    convolute(&srcImage, &destImage, algorithms[type], numThreads);
     stbi_write_png("output.png",destImage.width,destImage.height,destImage.bpp,destImage.data,destImage.bpp*destImage.width);
     stbi_image_free(srcImage.data);
     
