@@ -59,10 +59,15 @@ uint8_t getPixelValue(Image* srcImage,int x,int y,int bit,Matrix algorithm){
 //            algorithm: The kernel matrix to use for the convolution
 //Returns: Nothing
 void convolute(Image *srcImage, Image *destImage, Matrix algorithm, int numThreads) {
-    #pragma omp parallel for schedule(static)
-    for (int row = 0; row < srcImage->height; row++) {
-        for (int pix = 0; pix < srcImage->width; pix++) {
-            for (int bit = 0; bit < srcImage->bpp; bit++) {
+    int row, pix, bit;
+
+    if (numThreads < 1) numThreads = 1;
+    omp_set_num_threads(numThreads);
+
+    #pragma omp parallel for private(pix, bit) schedule(static)
+    for (row = 0; row < srcImage->height; row++) {
+        for (pix = 0; pix < srcImage->width; pix++) {
+            for (bit = 0; bit < srcImage->bpp; bit++) {
                 destImage->data[Index(pix, row, srcImage->width, bit, srcImage->bpp)] =
                     getPixelValue(srcImage, pix, row, bit, algorithm);
             }
