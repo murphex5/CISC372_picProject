@@ -1,7 +1,9 @@
-Script started on Thu Apr 23 20:09:40 2026
-]0;jmurph@r1n01.darwin:~/CISC372_picProject[?1034h[jmurph@r1n01 CISC372_picProject]$ srun ./image_pthreads pic.jpg edge[1@1
+Script started on Thu Apr 23 20:14:45 2026
+]0;jmurph@r1n01.darwin:~/CISC372_picProject[?1034h[jmurph@r1n01 CISC372_picProject]$ srun .i  ./image_pthreads pic1.p jpg edge
 Took 7 seconds with pthreads using 4 thread(s)
+]0;jmurph@r1n01.darwin:~/CISC372_picProject[jmurph@r1n01 CISC372_picProject]$ srun ./image_openmp pic1.jpg edge
+Took 7 seconds with OpenMP using 4 thread(s)
 ]0;jmurph@r1n01.darwin:~/CISC372_picProject[jmurph@r1n01 CISC372_picProject]$ exit
 exit
 
-Script done on Thu Apr 23 20:10:09 2026
+Script done on Thu Apr 23 20:15:30 2026
